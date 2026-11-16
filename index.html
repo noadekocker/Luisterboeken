@@ -175,7 +175,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 </head>
 <body>
 
-<input type="file" id="file" accept=".m4b,.m4a,.mp4,.aac,.mp3,audio/*" class="hidden">
+<input type="file" id="file" class="hidden">
 
 <!-- Bibliotheek -->
 <main class="lib" id="lib">
@@ -583,21 +583,22 @@ document.addEventListener('click', e => {
 $('file').addEventListener('change', async e => {
   const f = e.target.files[0]; e.target.value = '';
   if (!f) return;
+  if (!/\.(m4b|m4a|mp4|aac|mp3|wav)$/i.test(f.name) && !(f.type || '').startsWith('audio')) { toast('Kies een audioboek (bv. een .m4b-bestand)'); return; }
   const id = bookId(f);
   const existing = books.find(b => b.id === id);
-  if (existing) { await attachFile(existing, f); openBook(existing, true); return; }
+  if (existing) { attachFile(existing, f); openBook(existing, true); return; }
   $('loading').classList.remove('hidden');
   try {
     let info;
-    try { info = await M4B.parse(f); }
+    try { info = await Promise.race([M4B.parse(f), new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 45000))]); }
     catch (err) { info = { title: f.name.replace(/\.[^.]+$/, ''), author: '', cover: null, duration: 0, chapters: [] }; }
-    if (!info.duration) info.duration = await probeDuration(f);
+    if (!info.duration) info.duration = await Promise.race([probeDuration(f), new Promise(r => setTimeout(() => r(0), 15000))]);
     if (!info.chapters.length) info.chapters = [{ title: 'Volledig boek', start: 0, end: info.duration }];
     info.chapters[info.chapters.length - 1].end = info.duration;
     const b = { id, ...info, added: Date.now(), pos: { t: 0, at: 0 }, fileName: f.name };
     books.push(b);
-    try { await DB.put(b); } catch {}
-    await attachFile(b, f);
+    try { await DB.put(stripRuntime(b)); } catch {}
+    attachFile(b, f);
     renderLibrary();
     $('loading').classList.add('hidden');
     openBook(b, true);
@@ -615,13 +616,12 @@ function probeDuration(f) {
     a.onerror = () => { res(0); URL.revokeObjectURL(u); };
   });
 }
-async function attachFile(b, f) {
-  if (cur && cur.id === b.id) { curFile = f; loadSource(); }
+function attachFile(b, f) {
   b._file = f;
-  try { await DB.putFile(b.id, f); b.stored = true; }
-  catch { b.stored = false; }
-  try { await DB.put(stripRuntime(b)); } catch {}
-  if (cur && cur.id === b.id) renderPlayer();
+  if (cur && cur.id === b.id) { curFile = f; loadSource(); renderPlayer(); }
+  // Bewaar het bestand op de achtergrond, zodat je meteen kan luisteren
+  DB.putFile(b.id, f).then(() => { b.stored = true; DB.put(stripRuntime(b)).catch(() => {}); })
+    .catch(() => { b.stored = false; });
 }
 const stripRuntime = b => { const { _file, _done, ...rest } = b; return rest; };
 
