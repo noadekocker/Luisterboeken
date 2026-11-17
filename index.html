@@ -317,7 +317,9 @@ h1{font-weight:600;font-size:38px}
 .list{gap:10px}
 .list>.row{background:var(--glass);border:1px solid var(--glass-line);border-radius:20px;padding:10px 6px 10px 10px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .empty,.login{background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 20px 50px -30px rgba(110,100,190,.5)}
-.empty .ill{background:none;width:auto;height:auto;position:relative}
+.empty .ill{background:rgba(255,255,255,.6);border:1px solid var(--glass-line);width:110px;height:110px;color:var(--accent-text)}
+.empty .ill .logo-wrap{display:none}
+.empty .ill svg.hidden{display:block!important}
 .empty p{color:var(--muted)}
 .field,.ed input{background:rgba(255,255,255,.6);border-color:rgba(255,255,255,.9)}
 .big-btn,.add-btn,.add-round,.main-play{background:linear-gradient(180deg,#6FA9E2,#4F8ED0);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 10px 24px -10px rgba(70,120,200,.8)}
@@ -342,6 +344,47 @@ h1{font-weight:600;font-size:38px}
 .badge{background:rgba(255,255,255,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .card{box-shadow:0 0 0 1px rgba(255,255,255,.6),0 18px 34px -16px rgba(80,70,160,.55)}
 .pill{background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4)}
+
+/* ---------- Layout in stijl van de pin ---------- */
+.lib{padding-top:calc(var(--sat) + 10px)}
+.books{padding-top:calc(var(--sat) + 10px)}
+.lib,.books{padding-bottom:calc(var(--sab) + 190px)!important}
+.top{display:flex;align-items:flex-start;justify-content:space-between;padding:0 20px;min-height:100px}
+.top-logo{margin-left:-4px}
+.logo-top{display:block;width:56px;height:96px;color:var(--ink)}
+.top-actions{display:flex;gap:10px;padding-top:14px}
+.icon-btn{width:48px;height:48px}
+.icon-btn.live{background:var(--green);color:var(--green-ink)}
+.pills{display:flex;gap:8px;padding:14px 20px 0}
+.pills button{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font-size:15px;font-weight:600;color:var(--ink);background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.pills button.on{background:var(--green);color:var(--green-ink);border-color:rgba(255,255,255,.7);box-shadow:0 6px 16px -8px rgba(140,150,40,.8)}
+.pills small{font-size:12px;font-weight:700;opacity:.65}
+.chips{padding-top:10px}
+.chip{height:34px;font-size:13px;padding:0 13px}
+.grid{display:flex!important;gap:12px;padding:18px 16px 0;align-items:flex-start}
+.gcol{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+.gcol:nth-child(2){padding-top:46px}
+.bk{position:relative;display:block;width:100%;border-radius:24px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.65),0 18px 30px -18px rgba(80,70,160,.6)}
+.bk .bcover{border-radius:0;box-shadow:none}
+.bk .bcover .gen{align-items:flex-start;font-size:22px;padding:16px 14px;line-height:1.05}
+.bk .badge{top:10px;right:10px;bottom:auto;width:32px;height:32px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.bk .meta{position:absolute;left:8px;right:8px;bottom:8px;display:flex;flex-direction:column;gap:1px;padding:9px 11px;border-radius:16px;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);text-align:left}
+.bk .meta .t{font-size:13px;font-weight:700;line-height:1.2;margin:0;-webkit-line-clamp:2}
+.bk .meta .a{font-size:11px;margin:0}
+.bk .meta .stars{margin-top:3px}
+.bk .meta .stars svg{width:11px;height:11px}
+.searchbar{margin-top:6px}
+/* zwevende dock */
+.tabbar{display:none}
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--sab) + 14px);z-index:22;display:flex;align-items:center;gap:8px;padding:7px;border-radius:999px;background:rgba(255,255,255,.38);border:1px solid var(--glass-line);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);box-shadow:0 18px 40px -16px rgba(70,60,150,.5)}
+.dock .tab{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:var(--muted);flex:none}
+.dock .tab.on{background:rgba(255,255,255,.8);color:var(--ink)}
+.dock .tab svg{background:none!important;padding:0!important;margin:0!important;width:24px!important}
+.dock-add{width:62px;height:62px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;box-shadow:0 8px 20px -8px rgba(70,60,150,.55)}
+.dock-add:active{transform:scale(.95)}
+.mini{bottom:calc(var(--sab) + 96px)}
+h2{font-family:var(--serif);font-weight:600;font-variation-settings:"SOFT" 100,"WONK" 1}
+.carousel{padding-top:10px}
 @media (prefers-reduced-motion:reduce){.bubble{animation:none!important}}
 </style>
 </head>
@@ -362,13 +405,8 @@ h1{font-weight:600;font-size:38px}
 <!-- Bibliotheek -->
 <main class="lib" id="lib">
   <div class="top">
-    <div class="brand"><span class="logo-wrap"><svg class="logo-sm" aria-hidden="true"><use href="#logo"/></svg><span class="bubble" style="width:13px;height:13px;left:72%;top:4%"></span><span class="bubble" style="width:8px;height:8px;left:94%;top:18%"></span><span class="bubble" style="width:6px;height:6px;left:58%;top:-6%"></span></span>Luisterboek</div>
-    <label class="add-btn" for="file" role="button" tabindex="0" aria-label="Boek toevoegen">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Boek
-    </label>
+    <span class="logo-wrap top-logo"><svg class="logo-top" aria-hidden="true"><use href="#logo"/></svg><span class="bubble" style="width:18px;height:18px;left:74%;top:2%"></span><span class="bubble" style="width:11px;height:11px;left:98%;top:16%"></span><span class="bubble" style="width:7px;height:7px;left:60%;top:-7%"></span></span>
   </div>
-  <h1 id="hello">Luister verder</h1>
-  <p class="sub" id="hello-sub">Ga verder waar je gestopt bent</p>
 
   <div id="empty" class="empty hidden">
     <div class="ill"><span class="logo-wrap"><svg class="logo-big" aria-hidden="true"><use href="#logo"/></svg><span class="bubble" style="width:13px;height:13px;left:72%;top:4%"></span><span class="bubble" style="width:8px;height:8px;left:94%;top:18%"></span><span class="bubble" style="width:6px;height:6px;left:58%;top:-6%"></span></span><svg class="hidden" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
@@ -400,17 +438,18 @@ h1{font-weight:600;font-size:38px}
     <button class="linkbtn" id="login-switch" type="button">Nog geen account? <b>Account maken</b></button>
   </section>
   <section id="books-main" class="hidden">
-    <div class="bhead">
-      <span class="logo-wrap"><svg class="logo-head" aria-hidden="true"><use href="#logo"/></svg><span class="bubble" style="width:13px;height:13px;left:72%;top:4%"></span><span class="bubble" style="width:8px;height:8px;left:94%;top:18%"></span><span class="bubble" style="width:6px;height:6px;left:58%;top:-6%"></span></span>
-      <h1>Mijn boeken</h1>
-      <button class="icon-btn" id="acct" aria-label="Account"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></button>
-      <button class="add-round" data-addbook aria-label="Boek toevoegen"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+    <div class="top">
+      <span class="logo-wrap top-logo"><svg class="logo-top" aria-hidden="true"><use href="#logo"/></svg><span class="bubble" style="width:18px;height:18px;left:74%;top:2%"></span><span class="bubble" style="width:11px;height:11px;left:98%;top:16%"></span><span class="bubble" style="width:7px;height:7px;left:60%;top:-7%"></span></span>
+      <div class="top-actions">
+        <button class="icon-btn" id="search-toggle" aria-label="Zoeken"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+        <button class="icon-btn" id="acct" aria-label="Account"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></button>
+      </div>
     </div>
-    <div class="seg" role="tablist">
+    <div class="pills" role="tablist">
       <button data-seg="tbr" role="tab">Wil ik lezen <small id="seg-tbr-n">0</small></button>
       <button data-seg="read" role="tab">Gelezen <small id="seg-read-n">0</small></button>
     </div>
-    <div class="searchbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="shelf-q" type="search" placeholder="Zoek in je boeken" autocomplete="off"></div>
+    <div class="searchbar hidden" id="searchbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="shelf-q" type="search" placeholder="Zoek in je boeken" autocomplete="off"></div>
     <div class="chips">
       <button class="chip" data-fmt="all">Alles</button>
       <button class="chip" data-fmt="audio">Audioboek</button>
@@ -422,9 +461,10 @@ h1{font-weight:600;font-size:38px}
   </section>
 </main>
 
-<nav class="tabbar" role="tablist" aria-label="Onderdelen">
-  <button class="tab" data-tab="listen" role="tab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>Luisteren</button>
-  <button class="tab" data-tab="books" role="tab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/></svg>Boeken</button>
+<nav class="dock" aria-label="Onderdelen">
+  <button class="tab" data-tab="listen" aria-label="Luisteren"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></button>
+  <button class="dock-add" id="dock-add" aria-label="Toevoegen"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  <button class="tab" data-tab="books" aria-label="Boeken"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/></svg></button>
 </nav>
 
 <!-- Mini speler -->
@@ -768,8 +808,6 @@ function renderLibrary() {
   $('empty').classList.toggle('hidden', has);
   $('carousel').classList.toggle('hidden', !has);
   $('all-h').classList.toggle('hidden', !has);
-  $('hello').textContent = has ? 'Luister verder' : 'Welkom';
-  $('hello-sub').textContent = has ? 'Ga verder waar je gestopt bent' : 'Jouw audioboeken, met hoofdstukken';
 
   const recent = books.slice(0, 6);
   $('carousel').innerHTML = recent.map(b => {
@@ -1312,12 +1350,14 @@ function renderBooks() {
   if (shelfFormat !== 'all') list = list.filter(b => b.format === shelfFormat);
   if (shelfQuery) { const q = norm(shelfQuery); list = list.filter(b => norm(b.title + ' ' + (b.author || '')).includes(q)); }
   if (shelfTab === 'read') list = [...list].sort((a, b) => (b.read_at || '').localeCompare(a.read_at || '') || b.created_at.localeCompare(a.created_at));
-  $('grid').innerHTML = list.map(b => `
+  const card = b => `
     <button class="bk" data-book="${b.id}" aria-label="${esc(b.title)}">
-      <div class="bwrap">${coverEl(b)}${b.format ? `<span class="badge" title="${FORMATS[b.format].l}">${FORMATS[b.format].i}</span>` : ''}</div>
-      <div class="t">${esc(b.title)}</div><div class="a">${esc(b.author || '')}</div>
-      ${b.status === 'read' && b.rating ? starsHTML(b.rating) : ''}
-    </button>`).join('');
+      ${coverEl(b)}
+      ${b.format ? `<span class="badge" title="${FORMATS[b.format].l}">${FORMATS[b.format].i}</span>` : ''}
+      <span class="meta"><span class="t">${esc(b.title)}</span><span class="a">${esc(b.author || '')}</span>${b.status === 'read' && b.rating ? starsHTML(b.rating) : ''}</span>
+    </button>`;
+  const colA = list.filter((_, i) => i % 2 === 0), colB = list.filter((_, i) => i % 2 === 1);
+  $('grid').innerHTML = list.length ? `<div class="gcol">${colA.map(card).join('')}</div><div class="gcol">${colB.map(card).join('')}</div>` : '';
   const empty = !list.length;
   $('grid-empty').classList.toggle('hidden', !empty);
   if (empty) $('grid-empty').innerHTML = shelfQuery || shelfFormat !== 'all'
@@ -1334,6 +1374,15 @@ $('books').addEventListener('click', e => {
   }
 });
 $('shelf-q').addEventListener('input', e => { shelfQuery = e.target.value; renderBooks(); });
+$('search-toggle').onclick = () => {
+  const sb = $('searchbar'), open = sb.classList.toggle('hidden') === false;
+  $('search-toggle').classList.toggle('live', open);
+  if (open) setTimeout(() => $('shelf-q').focus(), 50); else if (shelfQuery) { shelfQuery = ''; $('shelf-q').value = ''; renderBooks(); }
+};
+$('dock-add').onclick = () => {
+  if (!$('books').classList.contains('hidden')) { if (session) addBook(); else toast('Log eerst in om boeken toe te voegen'); }
+  else $('file').click();
+};
 
 /* Boeken zoeken (Google Books, met Open Library als reserve) */
 function gbCover(v) {
@@ -1528,7 +1577,8 @@ function showTab(tab) {
   LS.set('tab', tab);
   $('lib').classList.toggle('hidden', tab !== 'listen');
   $('books').classList.toggle('hidden', tab !== 'books');
-  document.querySelectorAll('[data-tab]').forEach(b => { b.classList.toggle('on', b.dataset.tab === tab); b.setAttribute('aria-selected', b.dataset.tab === tab); });
+  document.querySelectorAll('[data-tab]').forEach(b => { b.classList.toggle('on', b.dataset.tab === tab); b.setAttribute('aria-current', b.dataset.tab === tab ? 'page' : 'false'); });
+  $('dock-add').setAttribute('aria-label', tab === 'books' ? 'Boek toevoegen' : 'Audioboek toevoegen');
   if (tab === 'books') { renderBooks(); loadShelf(); } else renderLibrary();
   window.scrollTo(0, 0);
 }
