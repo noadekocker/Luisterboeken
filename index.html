@@ -517,12 +517,6 @@ input[type=range]::-webkit-slider-thumb{background:#fff;border:2px solid var(--r
       <button data-seg="read" role="tab">Gelezen <small id="seg-read-n">0</small></button>
     </div>
     <div class="searchbar hidden" id="searchbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="shelf-q" type="search" placeholder="Zoek in je boeken" autocomplete="off"></div>
-    <div class="chips">
-      <button class="chip" data-fmt="all">Alles</button>
-      <button class="chip" data-fmt="audio">Audioboek</button>
-      <button class="chip" data-fmt="ebook">E-book</button>
-      <button class="chip" data-fmt="paper">Papier</button>
-    </div>
     <div class="grid" id="grid"></div>
     <div class="grid-empty hidden" id="grid-empty"></div>
   </section>
@@ -1397,7 +1391,7 @@ async function loadShelf() {
   if (!session) return;
   try {
     shelf = await api('books?select=*&order=created_at.desc');
-    LS.set('books-cache', shelf); renderBooks(); queueCovers();
+    LS.set('books-cache', shelf); renderBooks();
   } catch (e) { if (session && !shelf.length) toast('Je boeken laden lukt niet. Ben je online?'); }
 }
 function coverEl(b) {
@@ -1563,7 +1557,6 @@ async function saveDraft() {
     LS.set('books-cache', shelf); closePanel(); renderBooks();
     toast(draft._new ? (row.status === 'read' ? 'Toegevoegd aan Gelezen' : 'Op je leeslijstje gezet') : 'Opgeslagen');
     if (row.status === 'read' && (draft._new || draft._wasStatus !== 'read')) bubbleBurst();
-    if (!row.cover_url) queueCovers();
   } catch { toast('Opslaan lukt niet. Ben je online?'); if (btn) btn.disabled = false; }
 }
 async function deleteDraft() {
