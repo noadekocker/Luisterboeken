@@ -232,7 +232,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
       </button>
       <span class="lbl">Nu aan het luisteren</span>
-      <button class="icon-btn hidden" id="p-airplay" aria-label="Afspelen op tv (AirPlay)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/><path d="M12 15l5 6H7z" fill="currentColor"/></svg></button>
+      <button class="icon-btn hidden" id="p-airplay" aria-label="Luisteren op je tv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/><path d="M12 15l5 6H7z" fill="currentColor"/></svg></button>
       <button class="icon-btn" id="p-chapters-top" aria-label="Hoofdstukken">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
       </button>
@@ -977,24 +977,24 @@ if ('mediaSession' in navigator) {
   h('seekto', d => seek(d.seekTime));
 }
 
-/* ---------- AirPlay (naar tv of speaker) ---------- */
+/* ---------- Tv / AirPlay ----------
+   De tv kan het bestand niet zelf ophalen (het staat alleen op je iPhone).
+   Daarom speelt de app zelf af en stuurt iOS enkel het geluid door. */
 let onTV = false;
-if (window.WebKitPlaybackTargetAvailabilityEvent) {
-  audio.setAttribute('x-webkit-airplay', 'allow');
-  audio.addEventListener('webkitplaybacktargetavailabilitychanged', e => {
-    const ok = e.availability === 'available';
-    $('p-airplay').classList.toggle('hidden', !ok);
-    $('p-chapters-top').classList.toggle('hidden', ok);
-  });
-  audio.addEventListener('webkitcurrentplaybacktargetiswirelesschanged', () => {
-    onTV = !!audio.webkitCurrentPlaybackTargetIsWireless;
-    $('p-airplay').classList.toggle('live', onTV);
-    $('p-tv').innerHTML = onTV ? `<span class="tvbadge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/><path d="M12 15l5 6H7z" fill="currentColor"/></svg>Speelt af op je tv</span>` : '';
-    toast(onTV ? 'Speelt nu af op je tv' : 'Speelt weer af op je iPhone');
-    tick();
-  });
-  $('p-airplay').onclick = () => { try { audio.webkitShowPlaybackTargetPicker(); } catch { toast('AirPlay is niet beschikbaar'); } };
-}
+try { audio.disableRemotePlayback = true; } catch {}
+audio.setAttribute('x-webkit-airplay', 'deny');
+$('p-airplay').classList.remove('hidden');
+$('p-chapters-top').classList.add('hidden');
+$('p-airplay').onclick = () => openPanel('Luisteren op je tv', `
+  <div style="padding:0 10px 6px;font-size:15px;line-height:1.5;color:var(--ink)">
+    <ol style="margin:0 0 14px;padding-left:20px">
+      <li style="margin-bottom:8px">Zet je tv aan. Je iPhone en tv moeten op <b>hetzelfde wifi</b> zitten.</li>
+      <li style="margin-bottom:8px">Druk hier op <b>afspelen</b>.</li>
+      <li style="margin-bottom:8px">Open het <b>Bedieningspaneel</b>: veeg van rechtsboven naar beneden.</li>
+      <li style="margin-bottom:8px">Tik in het afspeelvak op het <b>AirPlay-icoon</b> (driehoek met cirkels) en kies je <b>Sony</b>.</li>
+    </ol>
+    <div class="ch-hint" style="margin:0">Je bedient alles gewoon verder in de app. Op je tv zie je enkel een AirPlay-scherm, het geluid komt uit de tv.</div>
+  </div>`);
 
 /* ---------- Start ---------- */
 (async () => {
