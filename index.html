@@ -201,7 +201,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .chip{flex:none;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 15px;border-radius:999px;background:#fff;font-size:14px;font-weight:600;color:var(--ink)}
 .chip svg{width:17px;height:17px}
 .chip.on{background:var(--green);color:var(--green-ink)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 12px;padding:18px 20px 0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:20px 12px;padding:18px 20px 0}
 .bk{text-align:left;min-width:0;display:block}
 .bwrap{position:relative}
 .bcover{position:relative;aspect-ratio:2/3;border-radius:10px;overflow:hidden;background:var(--mint);box-shadow:0 8px 16px -10px rgba(22,34,46,.55)}
