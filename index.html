@@ -96,8 +96,6 @@ h2{font-size:22px;letter-spacing:-.01em;margin:30px 20px 12px;font-weight:700}
 .phead{display:flex;align-items:center;justify-content:space-between;height:52px}
 .phead .lbl{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .icon-btn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(22,34,46,.06)}
-.icon-btn.live{background:var(--green);color:var(--green-ink)}
-.tvbadge{display:inline-flex;align-items:center;gap:6px;margin:14px 0 -12px;padding:6px 12px;border-radius:999px;background:var(--scarlet);color:#fff;font-size:13px;font-weight:650}
 .pcover{width:min(100%,340px);aspect-ratio:1;margin:12px auto 0;border-radius:24px;overflow:hidden;box-shadow:0 24px 50px -20px rgba(22,34,46,.45);transition:transform .3s}
 .pcover.paused{transform:scale(.93)}
 .chap-label{display:inline-block;margin-top:26px;padding:5px 10px;border-radius:999px;background:var(--green);color:var(--green-ink);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
@@ -232,14 +230,12 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
       </button>
       <span class="lbl">Nu aan het luisteren</span>
-      <button class="icon-btn hidden" id="p-airplay" aria-label="Luisteren op je tv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"/><path d="M12 15l5 6H7z" fill="currentColor"/></svg></button>
       <button class="icon-btn" id="p-chapters-top" aria-label="Hoofdstukken">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
       </button>
     </div>
     <div class="pcover paused" id="p-cover"></div>
     <div id="p-relink"></div>
-    <div id="p-tv"></div>
     <div class="chap-label" id="p-chap-label"></div>
     <div class="chap-title" id="p-chap-title"></div>
     <div class="book-line" id="p-book"></div>
@@ -725,7 +721,7 @@ function tick() {
   $('p-chap-label').textContent = `Hoofdstuk ${i + 1} van ${cur.chapters.length}`;
   if ($('p-chap-title').textContent !== ch.title) $('p-chap-title').textContent = ch.title;
   $('t-chap-v').textContent = `${i + 1}/${cur.chapters.length}`;
-  $('mini-sub').textContent = (onTV ? 'Op je tv · ' : '') + ch.title;
+  $('mini-sub').textContent = ch.title;
   if (!dragging) {
     const r = $('p-range'); r.value = Math.round(into / clen * 1000);
     r.style.setProperty('--p', (into / clen * 100) + '%');
@@ -976,25 +972,6 @@ if ('mediaSession' in navigator) {
   h('nexttrack', () => nextChapter());
   h('seekto', d => seek(d.seekTime));
 }
-
-/* ---------- Tv / AirPlay ----------
-   De tv kan het bestand niet zelf ophalen (het staat alleen op je iPhone).
-   Daarom speelt de app zelf af en stuurt iOS enkel het geluid door. */
-let onTV = false;
-try { audio.disableRemotePlayback = true; } catch {}
-audio.setAttribute('x-webkit-airplay', 'deny');
-$('p-airplay').classList.remove('hidden');
-$('p-chapters-top').classList.add('hidden');
-$('p-airplay').onclick = () => openPanel('Luisteren op je tv', `
-  <div style="padding:0 10px 6px;font-size:15px;line-height:1.5;color:var(--ink)">
-    <ol style="margin:0 0 14px;padding-left:20px">
-      <li style="margin-bottom:8px">Zet je tv aan. Je iPhone en tv moeten op <b>hetzelfde wifi</b> zitten.</li>
-      <li style="margin-bottom:8px">Druk hier op <b>afspelen</b>.</li>
-      <li style="margin-bottom:8px">Open het <b>Bedieningspaneel</b>: veeg van rechtsboven naar beneden.</li>
-      <li style="margin-bottom:8px">Tik in het afspeelvak op het <b>AirPlay-icoon</b> (driehoek met cirkels) en kies je <b>Sony</b>.</li>
-    </ol>
-    <div class="ch-hint" style="margin:0">Je bedient alles gewoon verder in de app. Op je tv zie je enkel een AirPlay-scherm, het geluid komt uit de tv.</div>
-  </div>`);
 
 /* ---------- Start ---------- */
 (async () => {
