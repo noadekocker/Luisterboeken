@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#E2E3F6">
+<meta name="theme-color" content="#F7AFA8">
 <title>Luisterboek</title>
 <meta name="apple-mobile-web-app-title" content="Luisterboek">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -385,6 +385,75 @@ h1{font-weight:600;font-size:38px}
 .mini{bottom:calc(var(--sab) + 96px)}
 h2{font-family:var(--serif);font-weight:600;font-variation-settings:"SOFT" 100,"WONK" 1}
 .carousel{padding-top:10px}
+
+/* =========================================================
+   Warme stijl: zachte gradient + glazen knoppen
+   ========================================================= */
+:root{
+  --ink:#2F2230; --muted:#7A6470; --line:rgba(47,34,48,.10);
+  --rose:#D45A78; --accent-text:#B8466A;
+  --scarlet:#D45A78; --scarlet-dark:#B8466A;
+  --glass:rgba(255,255,255,.26); --glass-line:rgba(255,255,255,.85);
+  --dream:radial-gradient(70% 45% at 0% 0%,#F6A9BA 0%,transparent 70%),
+          radial-gradient(70% 40% at 100% 8%,#F8A880 0%,transparent 70%),
+          radial-gradient(60% 40% at 15% 45%,#F7A99A 0%,transparent 70%),
+          radial-gradient(80% 50% at 70% 65%,#FDE39B 0%,transparent 70%),
+          radial-gradient(40% 25% at 0% 92%,#F7B3C2 0%,transparent 70%),
+          radial-gradient(70% 30% at 60% 100%,#FFF4DA 0%,transparent 75%),
+          linear-gradient(170deg,#F7AFA8 0%,#F9C29A 40%,#FDDC9E 70%,#FFF0CF 100%);
+}
+html{background:#F9C29A}
+.dream-bg::after,.player::before{opacity:.12}
+/* glazen knop, basis */
+.icon-btn,.pills,.chip,.tool,.searchbar input,.sbar input,.field,.ed input,.dock,.list>.row,.empty,.login,.bk .meta,.bk .badge,.pill,.chap-label{
+  background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.16));
+  border:1.5px solid rgba(255,255,255,.85);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -10px 18px rgba(255,255,255,.12),0 10px 26px -16px rgba(140,60,70,.45);
+  backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);
+}
+/* segment zoals "Home / Work": glazen balk, actieve knop massief wit */
+.pills{display:inline-flex;gap:4px;padding:5px;margin:14px 20px 0;border-radius:999px}
+.pills button{height:40px;padding:0 18px;background:none;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;color:var(--muted);font-weight:600}
+.pills button.on{background:#fff;color:var(--ink);box-shadow:0 4px 14px -6px rgba(140,60,70,.45)}
+.pills small{opacity:.6}
+.chip{color:var(--ink)}
+.chip.on,.tool.active,.icon-btn.live{background:#fff;color:var(--ink);border-color:#fff;box-shadow:0 6px 16px -8px rgba(140,60,70,.5)}
+.tool.active b{color:var(--ink)}
+.tool{color:var(--muted)}
+.chap-label{color:var(--ink);padding:6px 12px}
+/* hoofdknoppen: dik glas met witte rand */
+.big-btn,.add-btn,.add-round{background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.38));color:var(--ink);border:1.5px solid #fff;
+  box-shadow:inset 0 1px 0 #fff,inset 0 -12px 20px rgba(255,255,255,.25),0 14px 30px -14px rgba(140,60,70,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.danger-bg{background:#C2412D;color:#fff;border-color:rgba(255,255,255,.6)}
+.main-play{background:#fff;color:var(--ink);box-shadow:0 0 0 8px rgba(255,255,255,.35),0 0 0 9.5px rgba(255,255,255,.85),0 18px 36px -12px rgba(140,60,70,.6)}
+.main-play:active{background:#fff}
+.dock .tab.on{background:#fff;color:var(--ink)}
+.dock .tab{color:var(--muted)}
+.dock-add{background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.4));border:1.5px solid #fff;box-shadow:inset 0 1px 0 #fff,0 10px 24px -10px rgba(140,60,70,.55)}
+.mini{background:rgba(70,40,55,.62);border:1.5px solid rgba(255,255,255,.35)}
+.panel{background:rgba(255,246,238,.86)}
+.sheet-bg{background:rgba(90,40,60,.16)}
+/* voortgang & sterren in roze */
+input[type=range]::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--rose) var(--p,0%),rgba(47,34,48,.14) var(--p,0%))}
+input[type=range]::-moz-range-progress{background:var(--rose)}
+input[type=range]::-webkit-slider-thumb{background:#fff;border:2px solid var(--rose)}
+.mini .line b,.row .prog .bar b{background:var(--rose)}
+.pill .bar b{background:#fff}
+.stars,.stars-big button{color:var(--rose)}
+.mark.on span{background:var(--rose);border-color:var(--rose);color:#fff}
+.ch.cur,.chrow.cur,.opt.sel{background:rgba(255,255,255,.75)}
+.opt.sel{color:var(--accent-text)}
+.eq i{background:var(--rose)}
+.field:focus,.ed input:focus{border-color:#fff;box-shadow:0 0 0 3px rgba(212,90,120,.35)}
+.searchbar input:focus,.sbar input:focus{outline:none;box-shadow:0 0 0 3px rgba(212,90,120,.35)}
+/* covers zonder afbeelding */
+.cover-gen,.bcover{background:linear-gradient(160deg,#FFE7AE 0%,#FBC4A2 55%,#F5B2C5 100%)}
+.cover-gen,.bcover .gen{color:#6A2F43}
+.pcover{box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 0 0 8px rgba(255,255,255,.28),0 30px 60px -25px rgba(140,60,70,.6)}
+.bk{box-shadow:0 0 0 1.5px rgba(255,255,255,.75),0 18px 30px -18px rgba(140,60,70,.6)}
+.bubble{opacity:.85}
+.panel .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.panel .chip{background:rgba(255,255,255,.7)}
 @media (prefers-reduced-motion:reduce){.bubble{animation:none!important}}
 </style>
 </head>
