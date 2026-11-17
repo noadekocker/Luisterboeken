@@ -3,8 +3,8 @@
   "short_name": "Luisterboek",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#F9C29A",
-  "theme_color": "#F7AFA8",
+  "background_color": "#B9E1A3",
+  "theme_color": "#B9E1A3",
   "icons": [
     {
       "src": "icon-192.png",
