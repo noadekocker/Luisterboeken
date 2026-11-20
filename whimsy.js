@@ -2,7 +2,7 @@
    Alles wordt hier in de browser getekend met een vaste "random" zaadwaarde,
    zodat het er elke keer hetzelfde uitziet (net zoals in het Figma-ontwerp). */
 (() => {
-  const INK = '#1F3A2B';
+  const INK = '#3B2541';
 
   // Voorspelbare toevalsgenerator (mulberry32)
   const rng = seed => () => {
@@ -160,8 +160,8 @@
   }
   const PATTERNS = {
     blauw: { bg: '#8E99DE', colors: ['#F7E2A6', '#F3D894', '#FAEBC0'], speck: '#2E356B', seed: 21 },
-    creme: { bg: '#FBF3E2', colors: ['#5B6CF0', '#9AA6F2', '#E59AC0', '#2F6B45', '#8CC57A', '#F2C14E'], speck: '#8A7A5A', seed: 22 },
-    groen: { bg: '#6F9E7B', colors: ['#FBEFCF', '#FFE59A', '#FFFFFF'], speck: '#1F3A2B', seed: 23 },
+    creme: { bg: '#FBF3E2', colors: ['#6C5FE6', '#9AA6F2', '#E59AC0', '#D9507E', '#FC9461', '#F2C14E'], speck: '#8A7A5A', seed: 22 },
+    groen: { bg: '#5E3F70', colors: ['#FBEFCF', '#FFE59A', '#FFFFFF'], speck: '#3B2541', seed: 23 },
   };
   function patternSVG(name) {
     const p = PATTERNS[name], R = rng(p.seed), W = 360, step = 36;
