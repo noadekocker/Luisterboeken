@@ -1131,8 +1131,10 @@ function probeDuration(f) {
   return new Promise(res => {
     const a = new Audio(); const u = URL.createObjectURL(f);
     a.preload = 'metadata'; a.src = u;
-    a.onloadedmetadata = () => { res(isFinite(a.duration) ? a.duration : 0); URL.revokeObjectURL(u); };
-    a.onerror = () => { res(0); URL.revokeObjectURL(u); };
+    // Ruim het hulp-audio-element helemaal op, zodat iOS het niet aanziet als de speler voor het vergrendelscherm
+    const done = d => { res(d); a.removeAttribute('src'); a.load(); URL.revokeObjectURL(u); };
+    a.onloadedmetadata = () => done(isFinite(a.duration) ? a.duration : 0);
+    a.onerror = () => done(0);
   });
 }
 function attachFile(b, f) {
@@ -1484,10 +1486,25 @@ function updateMediaPosition() {
   if (chapterIndex(cur, audio.currentTime) !== lastChapterForMedia) setMedia();
   try { navigator.mediaSession.setPositionState({ duration: audio.duration, playbackRate: audio.playbackRate, position: Math.min(audio.currentTime, audio.duration) }); } catch {}
 }
+// Op iPhone/iPad bevriest iOS de JavaScript van de app wanneer het boek gepauzeerd is en het scherm vergrendeld is.
+// Een eigen 'play'-handler draait dan pas als je de app weer opent. Daarom laten we play/pauze op iOS
+// over aan iOS zelf: die start het <audio>-element rechtstreeks, ook als de app slaapt.
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function setPlaybackState() {
+  if ('mediaSession' in navigator) try { navigator.mediaSession.playbackState = audio.paused ? 'paused' : 'playing'; } catch {}
+}
+audio.addEventListener('play', setPlaybackState);
+audio.addEventListener('playing', setPlaybackState);
+audio.addEventListener('pause', setPlaybackState);
 if ('mediaSession' in navigator) {
   const h = (a, f) => { try { navigator.mediaSession.setActionHandler(a, f); } catch {} };
-  h('play', () => togglePlay());
-  h('pause', () => audio.pause());
+  if (IS_IOS) {
+    h('play', null);
+    h('pause', null);
+  } else {
+    h('play', () => { if (curFile) audio.play().catch(() => {}); else togglePlay(); });
+    h('pause', () => audio.pause());
+  }
   h('seekbackward', () => skip(-15));
   h('seekforward', () => skip(30));
   h('previoustrack', () => prevChapter());
